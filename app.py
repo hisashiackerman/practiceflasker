@@ -106,6 +106,7 @@ def add_user():
         form.password_hash2.data = ''
         form.favorite_anime.data = ''
         flash('User added successfully!')
+        
     website_users = Users.query.order_by(Users.date_added)
     return render_template('add_users.html', form=form, username=name, website_users=website_users)
 
