@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for message in get_flashed_messages() %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+{% endfor %}
+
+<body>
+
+
+    <h1>Update User:</h1>
+    <br />
+
+
+    {% if user_to_update %}
+    <table class="table table-hover table-bordered table-striped">
+        <tr>
+            <td>{{ user_to_update.id }}.<a href="{{ url_for('update_user', id=user_to_update.id) }}">{{
+                    user_to_update.name}}</a>-{{ user_to_update.email }}-{{ user_to_update.favorite_anime }}
+            </td>
+        </tr>
+    </table>
+    {% else %}
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.username.label(class = 'form-label')}}
+        {{ form.username(class='form-control') }}
+        <br />
+        {{ form.submit(class = 'btn btn-primary') }}
+
+    </form>
+    <br /><br /><br />
+    <h3>Current Users:</h3>
+    <table class="table table-hover table-bordered table-striped">
+        {% for website_user in website_users %}
+        <tr>
+            <td>{{ website_user.id }}.<a href="{{ url_for('update_user', id=website_user.id) }}">{{
+                    website_user.name}}</a>-{{ website_user.email }}-{{ website_user.favorite_anime }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+
+
+
+
+
+
+
+</body>
+{% endblock %}

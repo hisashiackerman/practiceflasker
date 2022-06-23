@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+{% endfor %}
+
+<body>
+
+    {% if username %}
+    <h3> User added {{ username| title}}!</h3>
+    <br />
+    <table class="table table-hover table-bordered table-striped">
+        {% for website_user in website_users %}
+        <tr>
+            <td>{{ website_user.id }}.<a href="{{ url_for('update_user', id=website_user.id) }}">{{
+                    website_user.name}}</a>-{{
+                website_user.email }}-{{ website_user.favorite_anime }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br />
+
+    {% else %}
+    <br />
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.username.label(class = 'form-label')}}
+        {{ form.username(class='form-control') }}
+
+        {{ form.email_id.label(class = 'form-label')}}
+        {{ form.email_id(class='form-control') }}
+
+        {{ form.password_hash.label(class = 'form-label')}}
+        {{ form.password_hash(class='form-control') }}
+
+        {{ form.password_hash2.label(class = 'form-label')}}
+        {{ form.password_hash2(class='form-control') }}
+
+        {{ form.favorite_anime.label(class = 'form-label')}}
+        {{ form.favorite_anime(class='form-control') }}
+
+
+
+        <br />
+        {{ form.submit(class = 'btn btn-primary') }}
+
+        <br /><br /><br />
+        <h3>Current users:</h3>
+        <br />
+        <table class="table table-hover table-bordered table-striped">
+            {% for website_user in website_users %}
+            <tr>
+                <td>{{ website_user.id }}.<a href="{{ url_for('update_user', id=website_user.id) }}">{{
+                        website_user.name}}</a>-{{ website_user.email }}-{{ website_user.favorite_anime }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+
+    </form>
+    {% endif %}
+
+
+
+
+
+
+
+</body>
+{% endblock %}

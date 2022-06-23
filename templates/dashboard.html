@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+{% endfor %}
+<br />
+
+<div class="card mb-3 shadow p-3 mb-5 bg-body rounded">
+    <div class="card-header">
+        <h1>User Dashboard</h1>
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <br />
+                    <br />
+                    <h3 class="card-title ">{{current_user.name}}</h3><br />
+                    <p class="card-text">
+                        <strong>Email: </strong>{{ current_user.email }}<br />
+                        <strong>Favorite Anime: </strong>{{ current_user.favorite_anime }}<br />
+                        <strong>Date Joined: </strong>{{ current_user.date_added }}<br />
+                    </p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+                <div class="col-4">
+                    <img src="{{ url_for('static', filename = 'images/yoru.jpg') }}" length="500" width="500"
+                        class=" p-3 mb-5 bg-body rounded" align="right">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<a href="{{ url_for('logout') }}" class="btn btn-outline-secondary btn-sm">Logout</a>
+
+
+<br /><br /><br />
+
+
+
+
+{% endblock %}

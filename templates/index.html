@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<body>
+    <center>
+        <h1>Anime Page</h1>
+        <h2>Talking about favorite anime I like</h2>
+
+        <p>My favorite anime are</p>
+        {% for anime in anime_list %}
+        <strong>{{ anime }}</strong><br />
+        {% endfor %}
+    </center>
+
+</body>
+{% endblock %}

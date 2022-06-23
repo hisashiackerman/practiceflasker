@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+{% endfor %}
+
+{% if id == current_user.id %}
+
+<body>
+    <h1>Update User:</h1>
+    <br />
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.username.label(class = 'form-label')}}
+        {{ form.username(class='form-control', value = user_to_update.name) }}
+
+        {{ form.email_id.label(class = 'form-label')}}
+        {{ form.email_id(class='form-control', value = user_to_update.email) }}
+
+        {{ form.password_hash.label(class = 'form-label')}}
+        {{ form.password_hash(class='form-control') }}
+
+
+        {{ form.favorite_anime.label(class = 'form-label')}}
+        {{ form.favorite_anime(class='form-control', value = user_to_update.favorite_anime) }}
+
+
+
+        <br />
+        {{ form.submit(class = 'btn btn-primary') }}
+        <a href="{{ url_for('delete_user', id = id) }}">Delete</a>
+
+    </form>
+
+</body>
+{% else %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    You can't edit another user's profile! It's unfair and unethical!! T__T
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<p>Sorry! You can't edit another user's data, that's just how society works! :(</p>
+{% endif %}
+
+{% endblock %}
