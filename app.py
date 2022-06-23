@@ -16,7 +16,8 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 ckeditor = CKEditor(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://joaugmfoldlisw:918276dd69d3e6104af5e3122153bda1145101947b11da1e8a41df4a10b1e517@ec2-23-23-182-238.compute-1.amazonaws.com:5432/d7a6oafl7uderj'
 app.config['SECRET_KEY'] = "e07e5ecdb25b94b71947500f166ce38e"
 
 db = SQLAlchemy(app)
@@ -37,7 +38,7 @@ def load_user(user_id):
 class Posts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
-    content = db.Column(db.Text)
+    content = db.Column(db.Text())
     author = db.Column(db.String(255))
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     slug = db.Column(db.String(255))
@@ -333,7 +334,3 @@ def admin():
     else:
         flash('Only admins can access this page! :(')
         return redirect(url_for('dashboard'))
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
