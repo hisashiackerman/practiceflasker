@@ -1,5 +1,5 @@
 
-from turtle import pos
+
 from flask import Flask, redirect, render_template, url_for, flash, request
 from matplotlib.pyplot import title
 from matplotlib.style import use
@@ -106,7 +106,7 @@ def add_user():
         form.password_hash2.data = ''
         form.favorite_anime.data = ''
         flash('User added successfully!')
-        
+
     website_users = Users.query.order_by(Users.date_added)
     return render_template('add_users.html', form=form, username=name, website_users=website_users)
 
@@ -335,3 +335,8 @@ def admin():
     else:
         flash('Only admins can access this page! :(')
         return redirect(url_for('dashboard'))
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
